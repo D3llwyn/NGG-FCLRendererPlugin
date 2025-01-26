@@ -1,10 +1,6 @@
 NGG-FCLRendererPlugin
 ====
 
-> [!WARNING]
-> 
-> Krypton Wrapper library file has NOT been uploaded now. It will be here soon.
-
 This is the **plugin application** of FCL to use Krypton Wrapper.
 
 If you want to see more about **Krypton Wrapper**, please see [NG-GL4ES](https://github.com/BZLZHH/NG-GL4ES).
