@@ -25,7 +25,7 @@ import kotlinx.coroutines.*
 import okhttp3.*
 import java.io.File
 
-
+// idk
 class MainActivity : Activity() {
     private val websiteUrl = "https://ng-gl4es.bzlzhh.top"
     private val markdownFileUrl = "https://raw.githubusercontent.com/BZLZHH/NG-GL4ES/public/README.md"
