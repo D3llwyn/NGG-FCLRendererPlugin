@@ -100,7 +100,7 @@ class MainActivity : Activity() {
         }
 
         val settingText1 = TextView(this).apply {
-            text = "光影效果优先"
+            text = "Priorize light and shadow effects"
             textSize = 17f
             setTextColor(Color.BLACK)
             gravity = Gravity.CENTER
@@ -108,14 +108,14 @@ class MainActivity : Activity() {
             paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
             setOnClickListener {
                 val builder = AlertDialog.Builder(layout.context)
-                builder.setTitle("光影效果优先")
-                    .setMessage("由于一些原因，现版本暂无法做到部分光影的水反(有可能还有其它功能)与效率兼顾，因此您需要选择使用的方案。\n\n实际上，更推荐您使用\"光影效率优先\"方案，它的光影运行效率大约是\"光影效果优先\"方案的5倍。")
+                builder.setTitle("Light and shadow effects")
+                    .setMessage("Due to some reasons, the current version cannot achieve the balance between water reflection of some lights and shadows (and possibly other functions) and efficiency, so you need to choose a solution to use. \n\nIn fact, it is more recommended that you use the \"Light and shadow efficiency priority\" solution, which has a light and shadow operation efficiency of about 5 times that of the \"Light and shadow effect priority\" solution.")
                     .show()
             }
         }
         
         val settingText2 = TextView(this).apply {
-            text = "光影效率优先"
+            text = "Light and shadow efficiency first"
             textSize = 17f
             setTypeface(typeface, Typeface.BOLD)
             setTextColor(Color.BLACK)
@@ -129,13 +129,13 @@ class MainActivity : Activity() {
                 if (!isChecked && !isDisableForceESCopyTex) {
                     isChecked = true
                     AlertDialog.Builder(this.context)
-                        .setTitle("警告")
-                        .setMessage("选用\"光影效果优先\"方案后，所有光影的水反(有可能还有其它功能)将可以正常渲染或使用。\n\n但这会导致光影运行效率十分低下(约为\"光影效率优先\"方案的20%)，请问您是否确定继续启用此方案？")
-                        .setPositiveButton("是") { _: DialogInterface?, _: Int ->
+                        .setTitle("Warn")
+                        .setMessage("After selecting the \"Light and Shadow Effects Priority\" solution, all light and shadow water reflections (and possibly other functions) will be rendered or used normally. \n\nHowever, this will result in very low light and shadow operation efficiency (about 20% of the \"Light and Shadow Efficiency Priority\" solution). Are you sure you want to continue using this solution?")
+                        .setPositiveButton("Yes") { _: DialogInterface?, _: Int ->
                             isDisableForceESCopyTex = true
                             isChecked = false
                         }
-                        .setNegativeButton("否") { _: DialogInterface?, _: Int ->  }
+                        .setNegativeButton("No") { _: DialogInterface?, _: Int ->  }
                         .show()
                 }
                 if (isDisableForceESCopyTex) {
@@ -181,7 +181,7 @@ class MainActivity : Activity() {
                 val logFile = File(NGGConfigEditor.LOG_FILE_PATH)
 
                 if (!logFile.exists()) {
-                    Toast.makeText(this.context, "日志文件不存在！", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "The log file does not exist!", Toast.LENGTH_SHORT).show()
                 }
 
                 try {
@@ -197,10 +197,10 @@ class MainActivity : Activity() {
                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     }
 
-                    startActivity(Intent.createChooser(shareIntent, "分享日志文件"))
+                    startActivity(Intent.createChooser(shareIntent, "Sharing log files"))
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    Toast.makeText(this.context, "分享日志文件失败！", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Failed to share log file!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -211,16 +211,16 @@ class MainActivity : Activity() {
             shape.cornerRadius = 100f
             shape.setColor(Color.rgb(159, 237, 253))
             background = shape
-            text = "查看 README.md"
+            text = "check README.md"
             setOnClickListener {
                 if (markdownViewAnimFinished) {
                     markdownViewAnimFinished = false
                     isMarkdownVisible = !isMarkdownVisible
                     if (isMarkdownVisible) {
-                        text = "隐藏 README.md"
+                        text = "Hide README.md"
                         fetchMarkdown(layout)
                     } else {
-                        text = "查看 README.md"
+                        text = "check README.md"
                         markdownView?.let { hideMarkdownWithAnimation(it, layout) }
                     }
                 }
@@ -262,19 +262,19 @@ class MainActivity : Activity() {
                 hasAllFilesPermission = true
             } else {
                 AlertDialog.Builder(this)
-                    .setTitle("权限请求")
-                    .setMessage("程序需要获取访问所有文件权限才能正常使用 Krypton Wrapper 设置功能。是否授予？")
+                    .setTitle("Permission Request")
+                    .setMessage("The program needs to obtain the permission to access all files in order to use the Krypton Wrapper settings function properly. Grant it?")
                     .setPositiveButton("是") { _: DialogInterface?, _: Int ->
                         val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                         intent.data = Uri.parse("package:" + this.packageName)
                         startActivityForResult(intent, REQUEST_CODE)
                         isNoticedAllFilesPermissionMissing = false
                     }
-                    .setNegativeButton("否") { _: DialogInterface?, _: Int ->
+                    .setNegativeButton("No") { _: DialogInterface?, _: Int ->
                         isNoticedAllFilesPermissionMissing = true
                         Toast.makeText(
                             this,
-                            "拒绝授权将导致设置功能无法正常工作",
+                            "Refusing authorization will cause the settings to not work properly",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -303,7 +303,7 @@ class MainActivity : Activity() {
             ) {
                 hasAllFilesPermission = true
             } else {
-                Toast.makeText(this, "拒绝授权将导致设置功能无法正常工作", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Refusing authorization will cause the settings to not work properly", Toast.LENGTH_SHORT)
                     .show()
                 hasAllFilesPermission = false
             }
@@ -321,13 +321,13 @@ class MainActivity : Activity() {
     private fun checkVulkanSupportability(context: Context) {
         if (!isVulkanSupported(context)) {
             AlertDialog.Builder(context)
-                .setTitle("警告")
-                .setMessage("检测到设备不支持 Vulkan! 这意味着此设备无法使用带有 ANGLE 的 Krypton Wrapper!\n\n您应当前往官网，下载\"NO-ANGLE\"版本。")
-                .setPositiveButton("前往官网") { _: DialogInterface?, _: Int ->
+                .setTitle("Warning")
+                .setMessage("Device not supporting Vulkan detected! This means that Krypton Wrapper with ANGLE cannot be used on this device!\n\nYou should go to the official website and download the \"NO-ANGLE\" version.")
+                .setPositiveButton("Go to the official website") { _: DialogInterface?, _: Int ->
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteUrl))
                     startActivity(intent)
                 }
-                .setNegativeButton("继续使用此版本") { _: DialogInterface?, _: Int ->  }
+                .setNegativeButton("Continue using this version") { _: DialogInterface?, _: Int ->  }
                 .setOnKeyListener { _, keyCode, _ ->
                     keyCode == KeyEvent.KEYCODE_BACK
                 }
@@ -396,13 +396,13 @@ class MainActivity : Activity() {
             // device is Adreno 740
             if (useANGLE)
                 AlertDialog.Builder(this)
-                    .setTitle("警告")
-                    .setMessage("检测到设备的 GPU 是 Adreno 740! Adreno 740 可能在使用了 ANGLE 的 Krypton Wrapper 的中出现严重渲染错误!\n\n您应当前往官网，下载\"NO-ANGLE\"版本。")
-                    .setPositiveButton("前往官网") { _: DialogInterface?, _: Int ->
+                    .setTitle("Warning")
+                    .setMessage("The device's GPU detected is Adreno 740! Adreno 740 may have serious rendering errors in Krypton Wrapper using ANGLE!\n\nYou should go to the official website and download the \"NO-ANGLE\" version.")
+                    .setPositiveButton("Go to the official website") { _: DialogInterface?, _: Int ->
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteUrl))
                         startActivity(intent)
                     }
-                    .setNegativeButton("继续使用此版本") { _: DialogInterface?, _: Int ->  }
+                    .setNegativeButton("Continue using this version") { _: DialogInterface?, _: Int ->  }
                     .setOnKeyListener { _, keyCode, _ ->
                         keyCode == KeyEvent.KEYCODE_BACK
                     }
@@ -411,13 +411,13 @@ class MainActivity : Activity() {
         } else {
             if (!useANGLE)
              AlertDialog.Builder(this)
-                 .setTitle("警告")
-                 .setMessage("检测到设备的 GPU 不是 Adreno 740! 非 Adreno 740 的设备在没有使用 ANGLE 的 Krypton Wrapper 的中出现少部分光影渲染错误，且效率更低!\n\n您应当前往官网，下载没有标注\"NO-ANGLE\"版本。")
-                 .setPositiveButton("前往官网") { _: DialogInterface?, _: Int ->
+                 .setTitle("Warning")
+                 .setMessage("The device's GPU is not detected as Adreno 740! Non-Adreno 740 devices have a few lighting and shadow rendering errors in Krypton Wrapper without ANGLE, and the efficiency is lower!\n\nYou should go to the official website and download the version without the "NO-ANGLE" mark.")
+                 .setPositiveButton("Go to the official website") { _: DialogInterface?, _: Int ->
                      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteUrl))
                      startActivity(intent)
                  }
-                 .setNegativeButton("继续使用此版本") { _: DialogInterface?, _: Int ->  }
+                 .setNegativeButton("Continue using this version") { _: DialogInterface?, _: Int ->  }
                  .setOnKeyListener { _, keyCode, _ ->
                      keyCode == KeyEvent.KEYCODE_BACK
                  }
@@ -549,7 +549,7 @@ class MainActivity : Activity() {
                 isNoticedAllFilesPermissionMissing = false
             } else {
                 if (!isNoticedAllFilesPermissionMissing)
-                    Toast.makeText(this, "拒绝授权将导致设置功能无法正常工作", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Refusing authorization will cause the settings to not work properly", Toast.LENGTH_SHORT).show()
                 isNoticedAllFilesPermissionMissing = true
                 hasAllFilesPermission = false
             }
